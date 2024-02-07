@@ -345,6 +345,18 @@
       {
         \str_set:NV \l__examzh_textfigure_current_figure_position_str \l_keys_choice_tl
       },
+    pos .choices:nn =
+      { 
+        left , right , top , bottom ,
+        top-left , top-right , top-center ,
+        top-flushright , bottom-flushright , 
+        bottom-left , bottom-right , bottom-center ,
+        right-top , right-bottom , right-center ,
+        left-top , left-bottom , left-center
+      }
+      {
+        \str_set:NV \l__examzh_textfigure_current_figure_position_str \l_keys_choice_tl
+      },
     % figure-yshift：调整图片的垂直额外偏移量
     figure-yshift .dim_set:N = \l__examzh_textfigure_figure_yshift_dim,
     figure-vshift .dim_set:N = \l__examzh_textfigure_figure_yshift_dim,
