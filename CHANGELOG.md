@@ -5,6 +5,24 @@
 格式参照 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 并且此项目遵守 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)。
 
+## [0.1.30] - 2024-02-11
+
+### Fixed
+
+- 修复 `section` 的超链接问题
+
+
+## [0.1.29] - 2024-02-07
+
+### Added
+
+- 增加 `fig-pos` 的同义选项 `pos`
+
+### Changed
+
+- 修改 `textfigure` 的选项的一些默认值
+
+
 
 ## [0.1.28] - 2023-07-14
 

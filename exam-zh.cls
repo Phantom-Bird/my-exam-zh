@@ -418,6 +418,8 @@
           }
         \clearpage
       }
+    % 修复 section 的超链接跳转问题
+    \int_gincr:N \c@chapter
   }
 
 % 纸张和页面布局
