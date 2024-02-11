@@ -328,3 +328,9 @@ CTAN/
 backup/
 
 定制/
+
+*.solution
+
+design/
+
+columnline-test.tex

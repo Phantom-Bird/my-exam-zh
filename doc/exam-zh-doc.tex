@@ -1,7 +1,7 @@
 \documentclass{xdyydoc}
 
-\newcommand{\DocDate}{2022-10-4}
-\newcommand{\DocVersion}{v0.1.26}
+\newcommand{\DocDate}{2024-02-11}
+\newcommand{\DocVersion}{v0.2.1}
 \input{exam-zh-doc-setup.tex}
 \usepackage{amssymb}
 
@@ -61,28 +61,28 @@
 
 \begin{itemize}
   % \item 增加试卷范例（语文，英语）
-  \item 答案控制
-    \begin{itemize}
-      \item 选择题
-        \begin{itemize}
-          \item 题目下方
-          \item 括号内
-          \item 最后：列表形式、表格形式
-        \end{itemize}
-      \item 填空题
-        \begin{itemize}
-          \item 题目下方
-          \item 划线内
-          \item 最后
-        \end{itemize}
-      \item 解答题
-        \begin{itemize}
-          \item 题目下方
-          \item 移动到最后
-        \end{itemize}
-    \end{itemize}
+  % \item 答案控制
+  %   \begin{itemize}
+  %     \item 选择题
+  %       \begin{itemize}
+  %         \item 题目下方
+  %         \item 括号内
+  %         \item 最后：列表形式、表格形式
+  %       \end{itemize}
+  %     \item 填空题
+  %       \begin{itemize}
+  %         \item 题目下方
+  %         \item 划线内
+  %         \item 最后
+  %       \end{itemize}
+  %     \item 解答题
+  %       \begin{itemize}
+  %         \item 题目下方
+  %         \item 移动到最后
+  %       \end{itemize}
+  %   \end{itemize}
   \item 选择题答案标记
-  \item \env{choices} 环境“均分”效果
+  % \item \env{choices} 环境“均分”效果
   % \item 图文排版（参考 xkwxdyy 的 \pkg{text-figure} 宏包和 qinglee 的 \pkg{wrapstuff} 宏包）
   \item 测试兼容性
   \item \env{question} 环境的引用
@@ -94,6 +94,8 @@
   \item 每个子包设置用户接口
   \item 通过 \tn{CJKunderline} 的 \meta{hidden} 键实现 \tn{fillin} 的无答案的时候，长度是答案的长度
   \item \env{poem} 环境的引用字体不是斜体
+  \item 用 meta 优化键值，比如统一的 show-answer
+  \item 设置 \tn{vec} 命令的定制开关。
 \end{itemize}
 
 

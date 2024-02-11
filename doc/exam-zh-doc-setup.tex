@@ -7,6 +7,7 @@
 \usepackage{../exam-zh-symbols}
 \usepackage{../exam-zh-chinese-english}
 \usepackage{../exam-zh-textfigure}
+\usepackage{../exam-zh-math}
 
 \ExplSyntaxOn
 \NewDocumentCommand \examsetup { m }
@@ -32,7 +33,10 @@
 
 \title{\textcolor{MaterialIndigo800}{%
   \textbf{exam-zh: 中国试卷 \LaTeX \xpinyin[font=\sffamily,format=\color{MaterialIndigo800}]{模}{mu2}板}}}
-\author{李泽平，夏康玮，郭李军}
+\author{%
+  夏康玮\thanks{%
+    李泽平构建了 \cls{exam-zh} 的最初的基本框架；郭李军开发了连线题环境}
+}
 \date{\DocDate\quad \DocVersion%
   \thanks{%
     \url{https://gitee.com/xkwxdyy/exam-zh} \\

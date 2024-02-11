@@ -20,6 +20,9 @@
 按照~\ref{subsec:编译方式} 小节中的方式编译，您应当得到一篇 1 页的文档。
 
 
+注意，如果您要在 Overleaf 或者 TeXPage 等在线编辑器上使用 \cls{exam-zh}，请在 \verb|\documentclass{exam-zh}| 前加一行代码：\verb|\let\stop\empty|.
+
+
 \subsection{编译方式} \label{subsec:编译方式}
 
 本模板不支持 \pdfTeX{} 引擎，仅支持使用 \XeLaTeX{} 。为了生成正确的目录、脚注以及交叉引用，您至少需要连续编译两次。
@@ -308,7 +311,7 @@
       <题干>
     \end{question}
   \end{ccnusyntax}
-  选择题和填空题题干环境。
+  选择题和填空题题干环境。键值列表设置见~\ref{subsubsec:参数-题干} 节
 \end{function}
 
 \begin{function}{problem 环境}
@@ -317,7 +320,7 @@
       <题干>
     \end{problem}
   \end{ccnusyntax}
-  解答题题干环境。
+  解答题题干环境。键值列表设置见~\ref{subsubsec:参数-题干} 节
 \end{function}
 
 \cls{question} 和 \cls{problem} 环境的区别仅在于若 \kvopt{show-points}{true} （下面会介绍这个键值），则 \cls{question} 的题干会紧接在分数后而  \cls{problem} 的题干会在分数后新起一段后开始。
@@ -461,7 +464,7 @@
     \fillin(*\oarg{键值列表}*)(*\oarg{答案}*)
     \fillin*(*\oarg{键值列表}*)(*\oarg{答案}*)
   \end{ccnusyntax}
-  填空（下划线或括号）。\meta{答案} 可以受~\ref{subsubsec:参数-题干} 节的 \cmd{question/show-answer} 键值控制隐藏。\meta{键值列表} 见~\ref{subsubsec:参数-填空题} 节。\tn{fillin} 不可换行，但是会自动根据内容深度提升基线（比如排版分数不会“压线”）；\tn{fillin*} 可以自动换行但是没有前者的功能，且 \tn{fillin*} 的换行功能只适用于 \kvopt{fillin/type}{line}、\kvopt{fillin/type}{paren} 和 \kvopt{fillin/type}{blank}。
+  填空（下划线或括号）。\meta{答案} 可以受~\ref{subsubsec:参数-题干} 节的 \cmd{question/show-answer} 键值控制隐藏。\meta{键值列表} 见~\ref{subsubsec:参数-填空题} 节。\tn{fillin} 不可换行，但是会自动根据内容深度提升基线（比如排版分数不会“压线”），但无法自动换行；\tn{fillin*} 可以自动换行但是没有前者的提升基线的功能，且 \tn{fillin*} 的换行功能只适用于 \kvopt{fillin/type}{line}、\kvopt{fillin/type}{paren} 和 \kvopt{fillin/type}{blank}。
 \end{function}
 
 注意，\tn{fillin} 命令经过处理，|\fillin[<1>]| 表示 |\fillin[<答案>]|（而不是通常定义两个可选参数命令，若只写一个的时候默认为第一个参数），而如果仅仅改变 \tn{fillin} 的类型（见下）而不输入答案，则需要使用 |\fillin[type=paren][]|。这样设计是考虑到：大部分时候都是无答案和输入答案两种情况，而单独改某一个 \tn{fillin} 的类型的情况很少，一般都是一些题目统一改，这个时候在需要修改的 \tn{fillin} 之前使用
@@ -570,11 +573,11 @@
 
 下面所有和 \env{solution} 有关的示例都默认加载了
 \begin{latexcode}
-  \examsetup{solution/show-solution = true}
+  \examsetup{solution/show-solution = show-stay}
 \end{latexcode}
 
 \examsetup{
-  solution/show-solution=true
+  solution/show-solution=show-stay
 }
 
 
@@ -854,7 +857,7 @@
     \geometry{showframe}
   ]{
     page/size=a3paper,
-    solution/show-solution=true,
+    solution/show-solution=show-stay,
     paren/show-paren=true,
     paren/show-answer=true
   }
@@ -1005,6 +1008,40 @@
   }
 \end{latexcode}
 将用户设置放在 \cls{exam-zh} 的默认设置后从而使其产生作用。
+
+
+\subsubsection{数学-计算题排版}
+
+\begin{function}[added = 2024-02-11]{calculations 环境}
+  \begin{ccnusyntax}[emph={[2]calculations}]
+    \begin{calculations}(*\oarg{键值列表}*)
+      \item (*\meta{内容1}*)
+      \item (*\meta{内容2}*)
+      ...
+    \end{calculations}
+  \end{ccnusyntax}
+  计算题排版环境。用户可根据效果实现更多应用。\oarg{键值列表} 见~\ref{subsubsec:参数-计算题排版} 节。
+\end{function}
+
+\begin{latexexample}{\env{calculations} 环境示例}
+  \begin{calculations}[
+    % index = 3,             % 从 3 开始编号
+    label   = \arabic*.,   % 样式，和 question 环境的一样
+    columns = 2,           % 每行多少项
+    hsep    = 0pt,         % 两列之间的间距
+    vsep    = 4cm          % 两行之间的间距
+  ]
+    \item
+      $(-10) + \dfrac{1}{3} - (-3)$
+    \item（5分）
+      $(-10) + 5 - (-3)$
+    \item
+      $(-10) + 5 - (-3)$
+    \item（5分）
+      $(-10) + 5 - (-3)$
+  \end{calculations}
+\end{latexexample}
+
 
 \subsection{参数设置}
 
@@ -1195,9 +1232,9 @@
   \end{ccnusyntax}
   页脚内容设置。
   \begin{itemize}
-    \item 若\meta{页脚格式} 中不含西文分号 |;|，则页脚内容为 \meta{页脚格式} 直接输出；
-    \item 若\meta{页脚格式} 中含一个西文分号 |;|，如 |foo;bar|，则页脚为 |foo<the page>bar|，即西文分号代替了页码的位置；
-    \item 若\meta{页脚格式} 中含两个西文分号 |;|，如 |foo;bar;baz|，则页脚为 |foo<the page>bar<total page>baz|，即第一个西文分号代替了页码的位置，第二个代替了总页码。
+    \item 若 \meta{页脚格式} 中不含西文分号 |;|，则页脚内容为 \meta{页脚格式} 直接输出；
+    \item 若 \meta{页脚格式} 中含一个西文分号 |;|，如 |foo;bar|，则页脚为 |foo<the page>bar|，即西文分号代替了页码的位置；
+    \item 若 \meta{页脚格式} 中含两个西文分号 |;|，如 |foo;bar;baz|，则页脚为 \\|foo<the page>bar<total page>baz|，即第一个西文分号代替了页码的位置，第二个代替了总页码。
   \end{itemize}
 \end{function}
 
@@ -2193,9 +2230,9 @@
   \fillin[width-type = normal, width = 1.1\linewidth][答案] 测试
 \end{latexexample}
 
-\begin{function}[added = 2022-07-15]{fillin/color}
+\begin{function}[added = 2022-07-15, updated = 2023-07-03]{fillin/box-color}
   \begin{ccnusyntax}[emph={[1]color}]
-    color = (*\meta{color}*)
+    box-color = (*\meta{color}*)
   \end{ccnusyntax}
   设置 \kvopt{fillin/type}{circle/rectangle} 类型的 \tn{fillin} 的边框颜色。
 \end{function}
@@ -2228,12 +2265,11 @@
 \end{function}
 
 
-\begin{function}[added = 2022-07-01,updated = 2022-08-17]{solution/show-solution,solution/show-answer}
-  \begin{ccnusyntax}[emph={[1]show-solution,show-answer}]
-    show-solution = (*\TTF*)
-    show-answer = (*\TTF*)
+\begin{function}[added = 2022-07-01,updated = 2024-02-11]{solution/show-solution}
+  \begin{ccnusyntax}[emph={[1]show-solution}]
+    show-solution = (*<(show-hide)|show-stay|show-move>*)
   \end{ccnusyntax}
-  是否显示解答环境 \env{solution} 的内容。\opt{show-solution} 和 \opt{show-answer} 两者等效。
+  是否显示或移动解答环境 \env{solution} 的内容。\opt{show-hide} 表示隐藏，\opt{show-stay} 表示显示在原处，\opt{show-move} 表示显示在章节最后。
 \end{function}
 
 \begin{function}[added = 2022-07-20]{solution/parbreak}
@@ -2983,4 +3019,85 @@
     parindent = (*\meta{dimension}*)
   \end{ccnusyntax}
   文本部分的缩进长度，默认为 |2em|。
+\end{function}
+
+
+\subsubsection{数学-计算题排版环境} \label{subsubsec:参数-计算题排版}
+
+\begin{function}[updated = 2024-02-11]{calculations}
+  \begin{ccnusyntax}[emph={[1]calculations}]
+    calculations = (*\marg{键值列表}*)
+    calculations/(*\meta{key}*) = (*\meta{value}*)
+  \end{ccnusyntax}
+  该选项包含多个子项目。用于设置 \env{calculations} 环境。可以在 \tn{examsetup} 中使用，也可以在 \env{calculations} 环境的可选参数中使用。
+\end{function}
+
+\begin{function}[added = 2024-02-11]{calculations/index}
+  \begin{ccnusyntax}[emph={[1]index}]
+    index = (*\meta{integer}*)
+  \end{ccnusyntax}
+  第一个题干的序号。默认为 |1|。
+\end{function}
+
+\begin{function}[added = 2024-02-11]{calculations/columns}
+  \begin{ccnusyntax}[emph={[1]columns}]
+    columns = (*\meta{integer}*)
+  \end{ccnusyntax}
+  每行多少项。默认为 |2|。
+\end{function}
+
+\begin{function}[added = 2024-02-11]{calculations/fig-pos}
+  \begin{ccnusyntax}[emph={[1]fig-pos}]
+    fig-pos = (*<top|above|bottom|below|left|right|(left-top)>*)
+  \end{ccnusyntax}
+  题干相对于标签的位置。\opt{top} 和 \opt{above} 同义、\opt{bottom} 和 \opt{below} 同义。
+\end{function}
+
+\begin{function}[added = 2024-02-11]{calculations/top-sep}
+  \begin{ccnusyntax}[emph={[1]top-sep}]
+    top-sep = (*\meta{dimension}*)
+  \end{ccnusyntax}
+  \env{calculations} 环境上方额外弹性间距。默认为 |1ex plus .5ex minus .5ex|。
+\end{function}
+
+\begin{function}[added = 2024-02-11]{calculations/bottom-sep}
+  \begin{ccnusyntax}[emph={[1]bottom-sep}]
+    bottom-sep = (*\meta{dimension}*)
+  \end{ccnusyntax}
+  \env{calculations} 环境下方额外弹性间距。默认为 |0pt|。
+\end{function}
+
+\begin{function}[added = 2024-02-11]{calculations/hsep,calculations/vsep}
+  \begin{ccnusyntax}[emph={[1]hsep,vsep}]
+    hsep = (*\meta{dimension}*)
+    vsep = (*\meta{dimension}*)
+  \end{ccnusyntax}
+  \opt{hsep} 表示题干之间的水平间距，\opt{vsep} 表示题干之间的垂直间距。\opt{hsep} 默认为 |2em|，\opt{vsep} 默认为 |0em|。
+\end{function}
+
+\begin{function}[added = 2024-02-11]{calculations/align}
+  \begin{ccnusyntax}[emph={[1]align}]
+    align = (*<(t)|m|b>*)
+  \end{ccnusyntax}
+  题干和标签的整体对齐方式。\opt{t} 表示顶部对齐、\opt{m} 表示居中对齐、\opt{b} 表示底部对齐。
+\end{function}
+
+\begin{function}[added = 2024-02-11]{calculations/xshift,calculations/hshift,calculations/yshift,calculations/vshift}
+  \begin{ccnusyntax}[emph={[1]xshift,hshift,yshift,vshift}]
+    xshift = (*\meta{dimension}*)
+    hshift = (*\meta{dimension}*)
+    yshift = (*\meta{dimension}*)
+    vshift = (*\meta{dimension}*)
+  \end{ccnusyntax}
+  题干和标签整体的水平和垂直的偏移量。\opt{xshift} 和 \opt{hshift} 同义，表示水平；\opt{yshift} 和 \opt{vshift} 同义，表示垂直。
+\end{function}
+
+\begin{function}[added = 2024-02-11]{calculations/label-xshift,calculations/label-hshift,calculations/label-yshift,calculations/label-vshift}
+  \begin{ccnusyntax}[emph={[1]xshift,hshift,yshift,vshift}]
+    label-xshift = (*\meta{dimension}*)
+    label-hshift = (*\meta{dimension}*)
+    label-yshift = (*\meta{dimension}*)
+    label-vshift = (*\meta{dimension}*)
+  \end{ccnusyntax}
+  标签相对题干的水平和垂直的偏移量。\opt{label-xshift} 和 \opt{label-hshift} 同义，表示水平；\opt{label-yshift} 和 \opt{label-vshift} 同义，表示垂直。
 \end{function}

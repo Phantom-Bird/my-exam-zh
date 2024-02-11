@@ -10,6 +10,7 @@
 ### Added
 
 - 增加答案控制功能
+- 增加计算题排版环境 `calculations`
 
 ### Fixed
 

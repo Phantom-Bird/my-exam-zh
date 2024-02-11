@@ -9,7 +9,7 @@
 \RequirePackage{expl3}
 \RequirePackage{xparse}
 
-\ProvidesExplPackage {exam-zh-question} {2023-07-15} {v0.1.28}
+\ProvidesExplPackage {exam-zh-question} {2024-02-11} {v0.2.1}
   {exam-zh question module}
 
 
@@ -229,6 +229,20 @@
     \group_end:
   }
   {}
+% \NewDocumentEnvironment { question } { O { } }
+%   {
+%     % \bool_set_false:N \l__examzh_question_problem_style_bool
+%     \group_begin:
+%       \group_begin:
+%         \tcbverbatimwrite { \jobname-tempfile.exam }
+%   }
+%   {
+%         \endtcbverbatimwrite
+%       \group_end:
+%       \__examzh_question_begin:nn {#1} { \input{\jobname-tempfile.exam} }
+%       \__examzh_question_end:nn {#1} { \input{\jobname-tempfile.exam} } 
+%     \group_end:
+%   }
 
 % 解答题
 \NewDocumentEnvironment { problem } { O { } +b }
@@ -1677,7 +1691,7 @@
         \bool_gset_true:N \g__examzh_solution_show_bool
         \bool_gset_true:N \g__examzh_solution_show_move_bool
       },
-    show-answer .bool_set:N = \g__examzh_solution_show_bool,
+    % show-answer .bool_set:N = \g__examzh_solution_show_bool,
     show-qed      .bool_set:N = \l__examzh_solution_show_qed_bool,
     qedsymbol     .tl_set:N = \l__examzh_solution_qedsymbol_tl,
     label-content  .tl_set:N   = \l__examzh_solution_label_content_tl,

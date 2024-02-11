@@ -8,7 +8,7 @@
 
 \RequirePackage{expl3}
 
-\ProvidesExplPackage {exam-zh-math} {2023-08-20} {v0.1.28}
+\ProvidesExplPackage {exam-zh-math} {2024-02-11} {v0.2.1}
   {exam-zh math module}
 
 \RequirePackage { tabularray }
@@ -25,6 +25,9 @@
       }
   }
 
+
+\keys_define:nn { exam-zh }
+  { calculations .meta:nn = { exam-zh / calculations } {#1} }
 
 %% calculations 环境 %%
 
