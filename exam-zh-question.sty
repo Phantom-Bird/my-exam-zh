@@ -1733,23 +1733,23 @@
         \bool_if:NTF \g__examzh_solution_show_move_bool
           {
             % 这个方法成功
-            % \iow_open:Nn \g__write_soltion_to_auxfile {examzh \int_use:N \g__examzh_question_index_int .solution}
-            % \iow_now:Nx \g__write_soltion_to_auxfile 
-            %   {
-            %     \par \noindent
-            %     \int_eval:n { \g__examzh_question_index_int - 1 }.  【解析】
-            %     \exp_not:n {#2}
-            %     \par \exp_not:n { \vspace*{1ex} }
-            %   }
-            % \iow_close:N \g__write_soltion_to_auxfile
+            \iow_open:Nn \g__write_soltion_to_auxfile {examzh \int_use:N \g__examzh_question_index_int .solution}
+            \iow_now:Nx \g__write_soltion_to_auxfile 
+              {
+                \par \noindent
+                \int_eval:n { \g__examzh_question_index_int - 1 }.  【解析】
+                \exp_not:n {#2}
+                \par \exp_not:n { \vspace*{1ex} }
+              }
+            \iow_close:N \g__write_soltion_to_auxfile
 
             % 下面的方法失败
-            \group_begin:
-            \tl_set:Nn \tcb@verbatim@begin@hook 
-              { \iow_now:Nx \tcb@out { \int_use:N \g__examzh_question_index_int } }
-            \tcbverbatimwrite {examzh \int_use:N \g__examzh_question_index_int .solution} #2
-            \endtcbverbatimwrite
-            \group_end:
+            % \group_begin:
+            % \tl_set:Nn \tcb@verbatim@begin@hook 
+            %   { \iow_now:Nx \tcb@out { \int_use:N \g__examzh_question_index_int } }
+            % \tcbverbatimwrite {examzh \int_use:N \g__examzh_question_index_int .solution} #2
+            % \endtcbverbatimwrite
+            % \group_end:
           }
           {
             \vspace { \l__examzh_solution_top_sep_skip }
