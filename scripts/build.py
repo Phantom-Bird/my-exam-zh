@@ -180,7 +180,7 @@ if out != '':  # 表示编译已经结束
             # print()
             for filename in filenames:
                 if not filename.endswith('DS_Store') and not filename.startswith('__MACOSX/'):
-                    # #1 表示原位置， #2 表示目标位置
+                    #1 表示原位置， #2 表示目标位置
                     ctanZip.write(os.path.join(path, filename), os.path.join(relativePath, filename))
         for file in ctanZip.namelist():
             if file.endswith('DS_Store'):
