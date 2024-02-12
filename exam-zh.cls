@@ -1,12 +1,12 @@
 %
-% Copyright (c) 2022 Zeping Lee
+% Copyright (c) 2024 Zeping Lee
 % Released under the LaTeX Project Public License v1.3c License.
 % Repository: https://gitee.com/xkwxdyy/exam-zh
 %
 
 \NeedsTeXFormat{LaTeX2e}[2017/04/15]
 \RequirePackage{expl3}
-\ProvidesExplClass {exam-zh} {2024-02-11} {v0.2.1} {LaTeX template for Chinese exam}
+\ProvidesExplClass {exam-zh} {2024-02-12} {v0.2.1} {LaTeX template for Chinese exam}
 
 % 检查 LaTeX2e kernel 版本
 \msg_new:nnn { exam-zh } { latex-too-old }
