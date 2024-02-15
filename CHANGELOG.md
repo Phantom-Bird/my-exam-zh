@@ -5,6 +5,14 @@
 格式参照 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 并且此项目遵守 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)。
 
+
+## [0.2.1] - 2024-02-15
+
+### Fixed
+
+- 更改手册的一处笔误
+
+
 ## [0.2.1] - 2024-02-11
 
 ### Added
