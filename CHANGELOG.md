@@ -6,6 +6,13 @@
 并且此项目遵守 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)。
 
 
+## [0.2.2] - 2024-02-22
+
+### Added
+
+- 增加 `solution` 的键值 `pre-analysis`
+
+
 ## [0.2.1] - 2024-02-15
 
 ### Fixed

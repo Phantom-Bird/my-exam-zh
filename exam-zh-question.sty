@@ -1692,6 +1692,7 @@
         \bool_gset_true:N \g__examzh_solution_show_move_bool
       },
     % show-answer .bool_set:N = \g__examzh_solution_show_bool,
+    pre-analysis .tl_set:N = \l__examzh_solution_pre_analysis_tl,
     show-qed      .bool_set:N = \l__examzh_solution_show_qed_bool,
     qedsymbol     .tl_set:N = \l__examzh_solution_qedsymbol_tl,
     label-content  .tl_set:N   = \l__examzh_solution_label_content_tl,
@@ -1727,7 +1728,8 @@
     blank-vsep         = 12ex plus 1ex minus 1ex,
     top-sep            = .25em plus .25em minus .1em,
     bottom-sep         = 0pt,
-    parbreak           = false
+    parbreak           = false,
+    pre-analysis       = {【解析】},
   }
 \keys_define:nn { exam-zh }
   { solution .meta:nn = { exam-zh / solution } {#1} }
@@ -1751,7 +1753,7 @@
             \iow_now:Nx \g__write_soltion_to_auxfile 
               {
                 \par \noindent
-                \int_eval:n { \g__examzh_question_index_int - 1 }.  【解析】
+                \int_eval:n { \g__examzh_question_index_int - 1 }. \l__examzh_solution_pre_analysis_tl
                 \exp_not:n {#2}
                 \par \exp_not:n { \vspace*{1ex} }
               }

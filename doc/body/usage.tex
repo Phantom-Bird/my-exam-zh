@@ -2269,7 +2269,15 @@
   \begin{ccnusyntax}[emph={[1]show-solution}]
     show-solution = (*<(hide)|show-stay|show-move>*)
   \end{ccnusyntax}
-  是否显示或移动解答环境 \env{solution} 的内容。\opt{hide} 表示隐藏，\opt{show-stay} 表示显示在原处，\opt{show-move} 表示显示在章节最后。
+  是否显示或移动解答环境 \env{solution} 的内容。\opt{hide} 表示隐藏，\opt{show-stay} 表示显示在原处，\opt{show-move} 表示显示在最后。
+\end{function}
+
+
+\begin{function}[added = 2024-02-22]{solution/pre-analysis}
+  \begin{ccnusyntax}[emph={[1]pre-analysis}]
+    pre-analysis = (*\meta{content}*)
+  \end{ccnusyntax}
+  移动解答环境 \env{solution} 的内容到最后时，解答环境前的内容。默认为 |【解析】|。
 \end{function}
 
 \begin{function}[added = 2022-07-20]{solution/parbreak}
@@ -2312,6 +2320,14 @@
     label-content = (*\meta{content}*)
   \end{ccnusyntax}
   \env{solution} 环境开头的标签内容。默认为 |解答|。若用于 \tn{examsetup} 则作用于之后的所有 \env{solution} 环境。
+
+  如果想将标签内容改为证明，并且想使用 |proof| 而不是 |solution|，可以重新定义 \env{proof} 环境:
+  \begin{latexcode}
+    \RenewDocumentEnvironment{proof}{O{}}{%
+      \begin{solution}[label-content = 证明, pre-analysis = 【证明】, #1]
+    }{\end{solution}}
+  \end{latexcode}
+  其余使用和 \env{solution} 环境一样。
 \end{function}
 
 \begin{function}[added = 2022-07-01,updated = 2022-07-02]{solution/label-punct}
