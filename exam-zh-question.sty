@@ -1696,6 +1696,7 @@
     show-qed      .bool_set:N = \l__examzh_solution_show_qed_bool,
     qedsymbol     .tl_set:N = \l__examzh_solution_qedsymbol_tl,
     label-content  .tl_set:N   = \l__examzh_solution_label_content_tl,
+    label-indentation .bool_set:N = \l__examzh_solution_label_indentation_bool,
     label-punct    .tl_set:N   = \l__examzh_solution_label_punct_tl,
     score-showleader .bool_set:N = \l__examzh_score_show_leader_bool,
     score-pre-content .tl_set:N = \l__examzh_score_pre_content_tl,
@@ -1718,6 +1719,7 @@
     show-qed           = true,
     qedsymbol          = $\square$,
     label-content      = {解答},
+    label-indentation  = true,
     label-punct        = {},
     score-showleader   = true,
     score-pre-content  = {},
@@ -1837,6 +1839,10 @@
     % \item \relax
     \group_begin:
       % \hspace* { 2\ccwd }
+      \bool_if:NF \l__examzh_solution_label_indentation_bool
+        {
+          \noindent
+        }
       \bfseries  \l__examzh_solution_label_content_tl  
       \@addpunct { \l__examzh_solution_label_punct_tl }
     \group_end:

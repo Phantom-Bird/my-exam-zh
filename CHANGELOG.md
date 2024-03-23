@@ -6,6 +6,15 @@
 并且此项目遵守 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)。
 
 
+## [0.2.3] - 2024-03-23
+
+### Added
+
+- 增加 `solution` 的 `label-indentation` 键值
+
+
+
+
 ## [0.2.2] - 2024-02-22
 
 ### Added

@@ -429,12 +429,12 @@
 
 \begin{latexexample}{\tn{AddChoicesCounter} 使用示例}
   \ExplSyntaxOn
-  \cs_new:Npn \test_counter:n #1
+  \cs_new:Npn \examzhtest_counter:n #1
     {
       \int_set:Nn \l_tmpa_int { \int_eval:n { #1 + 1 } }
       \int_use:N \l_tmpa_int
     }
-  \AddChoicesCounter \test \test_counter:n
+  \AddChoicesCounter \test \examzhtest_counter:n
   \ExplSyntaxOff
   \begin{choices}[label = \test*]
     \item 1
@@ -2329,6 +2329,14 @@
   \end{latexcode}
   其余使用和 \env{solution} 环境一样。
 \end{function}
+
+\begin{function}[added = 2024-03-23]{solution/label-indentation}
+  \begin{ccnusyntax}[emph={[1]label-indentation}]
+    label-indentation = (*\TTF*)
+  \end{ccnusyntax}
+  \env{solution} 环境开头的标签内容是否缩进。默认为缩进。
+\end{function}
+
 
 \begin{function}[added = 2022-07-01,updated = 2022-07-02]{solution/label-punct}
   \begin{ccnusyntax}[emph={[1]label-punct}]
