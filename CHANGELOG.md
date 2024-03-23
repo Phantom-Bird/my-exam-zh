@@ -11,7 +11,7 @@
 ### Added
 
 - 增加 `solution` 的 `label-indentation` 键值
-
+- 增加手册的 “如何提问” 节
 
 
 
