@@ -1,5 +1,5 @@
 %
-% Copyright (c) 2024 Zeping Lee
+% Copyright (c) 2024 Xia Kangwei and Zeping Lee
 % Released under the LaTeX Project Public License v1.3c License.
 % Repository: https://gitee.com/xkwxdyy/exam-zh
 %
@@ -45,7 +45,6 @@
     \defaultCJKfontfeatures
       {
         Script  = CJK,
-        % Mapping = fullwidth-stop ,
       }
   }
 
