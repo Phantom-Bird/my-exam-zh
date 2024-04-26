@@ -416,52 +416,53 @@
       \par 
       \vspace*{ \l__examzh_textfigure_top_sep_skip }
       \noindent
-      \__examzh_textfigure_output:nn {#2} {#3}
+      \__examzh_textfigure_output:nnn {#1} {#2} {#3}
       \vspace*{ \l__examzh_textfigure_bottom_sep_skip }
     \group_end:
   }
 
 
 % 最终的拼接命令
-\cs_new:Npn \__examzh_textfigure_output:nn #1#2
+\cs_new:Npn \__examzh_textfigure_output:nnn #1#2#3
   {
-    \__examzh_textfigure_text_width_dim_set:
+    \__examzh_textfigure_text_width_dim_set:n {#1}
     % issue：https://gitee.com/xkwxdyy/text-figure/issues/I4RVQX
     % 关键点在于要离开垂直模式
     % https://ask.latexstudio.net/ask/question/7238.html
     \mode_leave_vertical:
     % 将内容存到 coffin 中
-    \__examzh_textfigure_coffin_store:nn {#1}{#2}
+    \__examzh_textfigure_coffin_store:nn {#2}{#3}
     % coffin 的拼接
     \__examzh_textfigure_coffin_join:
     % coffin 的 typeset
     \__examzh_textfigure_coffin_typeset:
   }
-\cs_new:Npn \__examzh_textfigure_text_width_dim_set:
+\cs_new:Npn \__examzh_textfigure_text_width_dim_set:n #1
   {
-    % \str_case:VnT \l__examzh_textfigure_current_figure_position_str 
-    %   {
-    %     {bottom-flushright} {}
-    %     {bottom-left} {}
-    %     {bottom-right} {}
-    %     {bottom-center} {}
-    %   }
-    %   { \fp_set:Nn \l__examzh_textfigure_text_ratio_fp {1} }
-    % \fp_compare:nNnF { \l__examzh_textfigure_text_ratio_fp } = { 1 }
-    %   {
-    %     \str_case:VnT \l__examzh_textfigure_current_figure_position_str 
-    %       {
-    %         {left} {}
-    %         {right} {}
-    %         {left-center} {}
-    %         {right-center} {}
-    %         {right-top} {}
-    %         {right-bottom} {}
-    %         {left-top} {}
-    %         {left-bottom} {}
-    %       }
-    %       { \fp_set:Nn \l__examzh_textfigure_text_ratio_fp {0.7} }
-    %   }
+    \str_case:VnT \l__examzh_textfigure_current_figure_position_str 
+      {
+        {bottom-flushright} {}
+        {bottom-left} {}
+        {bottom-right} {}
+        {bottom-center} {}
+      }
+      { \fp_set:Nn \l__examzh_textfigure_text_ratio_fp {1} }
+    \fp_compare:nNnF { \l__examzh_textfigure_text_ratio_fp } = { 1 }
+      {
+        \str_case:VnT \l__examzh_textfigure_current_figure_position_str 
+          {
+            {left} {}
+            {right} {}
+            {left-center} {}
+            {right-center} {}
+            {right-top} {}
+            {right-bottom} {}
+            {left-top} {}
+            {left-bottom} {}
+          }
+          { \fp_set:Nn \l__examzh_textfigure_text_ratio_fp {0.7} }
+      }
+    \keys_set:nn { exam-zh / textfigure } {#1}
     \dim_set_eq:NN \l__examzh_textfigure_tmpa_dim  \l__examzh_textfigure_text_width_dim
     \dim_set:Nn \l__examzh_textfigure_text_width_dim
       {

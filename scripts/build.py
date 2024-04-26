@@ -103,7 +103,6 @@ with open(originPath / clsFile, 'r') as file:
         newFile.write(content)
 
 # 2. 更新手册版本并编译
-1
 with open(docPath / docFiles[0], 'r') as file:
     content = file.read()
     content = docDateRegex.sub(r'\\newcommand{\\DocDate}{%s}' % (date), content)
