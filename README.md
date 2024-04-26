@@ -1,3 +1,12 @@
+> [!WARNING]
+> `exam-zh` 作为开源项目开发至今，基础功能算是完善了，且没有严重的 bug，而开发者精力有限，决定于 2024 年 04 月 26 日 开始无限期停止维护 `exam-zh`。未来可能会继续维护，但不保证时间，但也可能不再维护了。
+> 
+> Gitee 的项目仓库不会关闭，也欢迎有能力的开发者继续维护。
+> Gitee：https://gitee.com/xkwxdyy/exam-zh
+> 
+> 感谢使用过此模板的用户的支持。
+
+
 # exam-zh: LaTeX template for Chinese exam
 
 Provides a class exam-zh.cls and its several module packages like exam-zh-question.sty and exam-zh-choices.sty, where these module packages can be used individually. 
