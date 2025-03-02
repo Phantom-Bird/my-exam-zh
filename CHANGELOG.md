@@ -6,12 +6,19 @@
 并且此项目遵守 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)。
 
 
+## [0.2.5] - 2024-04-28
+
+### Changed
+
+- 修改 `\frac` 的定义
+
+
+
 ## [0.2.4] - 2024-03-31
 
 ### Changed
 
 - 修改 `example-single.tex` 和 `example-multiple.tex` 的细节（感谢 @gannaiju ）
-
 
 
 

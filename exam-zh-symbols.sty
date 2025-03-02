@@ -8,7 +8,7 @@
 
 \RequirePackage{expl3}
 
-\ProvidesExplPackage {exam-zh-symbols} {2024-03-23} {v0.2.3}
+\ProvidesExplPackage {exam-zh-symbols} {2025-02-19} {v0.2.5}
   {exam-zh symbols module}
 
 \RequirePackage { tikz }
@@ -86,7 +86,13 @@
             \l__examzh_symbols_dfrac_add_distance_muskip
             {#1}{#2}
         }
-        { \examzhdfrac {#1} {#2} }
+        % { \examzhdfrac {#1} {#2} }
+        {
+          \mathchoice { \examzhdfrac{#1}{#2} }
+            { \examzhdfrac{#1}{#2} }
+            { \examzhfrac{#1}{#2} }
+            { \examzhfrac{#1}{#2} }
+        }
     \group_end:
   }
 \cs_new:Npn \__examzh_symbols_frac_calc_str_num:nn #1#2
