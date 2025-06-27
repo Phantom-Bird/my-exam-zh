@@ -1745,7 +1745,8 @@
     % \addvspace { \l__examzh_solution_top_sep_skip }
     \keys_set:nn { exam-zh / solution } {#1}
     % 放在这是使得 \examsetup 设置 qedsymbol 可以放在正文区
-    \cs_set_eq:NN \qedsymbol \l__examzh_solution_qedsymbol_tl
+    % \tl_set_eq:NN \qedsymbol \l__examzh_solution_qedsymbol_tl
+    \tl_set:Nn \qedsymbol { \textcolor{black}{\l__examzh_solution_qedsymbol_tl} }
     \bool_if:NTF \g__examzh_solution_show_bool
       {
         \bool_if:NTF \g__examzh_solution_show_move_bool
@@ -1837,23 +1838,23 @@
     % \normalfont \topsep6 \p@ \@plus6 \p@ \relax
     % \trivlist
     % \item \relax
-    \group_begin:
+    %\group_begin:
       % \hspace* { 2\ccwd }
       \bool_if:NF \l__examzh_solution_label_indentation_bool
         {
           \noindent
         }
-      \bfseries  \l__examzh_solution_label_content_tl  
-      \@addpunct { \l__examzh_solution_label_punct_tl }
-    \group_end:
+      \textbf{  \l__examzh_solution_label_content_tl  \@addpunct { \l__examzh_solution_label_punct_tl }}
+    %\group_end:
     \hspace{0.5em} 
     % \ignorespaces
     % 是否要新起一段开始
     \bool_if:NT \l__examzh_solution_par_break_bool { \par }
+    % https://tex.stackexchange.com/questions/746911/strange-blank-line-appeared-with-color-command-in-the-custom-solution-environme
     % \group_begin:
-    \begingroup
+    % \begingroup
       \color { \l__examzh_solution_text_color_tl } #1
-    \endgroup
+    % \endgroup
     % \group_end:
     \bool_if:NT \l__examzh_solution_show_qed_bool
       { \popQED }
