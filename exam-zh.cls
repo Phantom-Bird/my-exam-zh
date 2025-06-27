@@ -1919,6 +1919,10 @@
     show-watermark = true,
     show-draft     = manual,
   }
+\keys_define:nn { exam-zh }
+{
+    draft .meta:nn = { exam-zh / draft } {#1} 
+}
 % “草稿纸”尺寸默认值
 \AtEndPreamble
   {
