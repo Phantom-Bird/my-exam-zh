@@ -1755,10 +1755,10 @@
             \iow_open:Nn \g__write_soltion_to_auxfile {examzh \int_use:N \g__examzh_question_index_int .solution}
             \iow_now:Nx \g__write_soltion_to_auxfile 
               {
-                \par \noindent
+                \exp_not:n { \par \noindent }
                 \int_eval:n { \g__examzh_question_index_int - 1 }. \l__examzh_solution_pre_analysis_tl
                 \exp_not:n {#2}
-                \par \exp_not:n { \vspace*{1ex} }
+                \exp_not:n { \par \vspace*{1ex} }
               }
             \iow_close:N \g__write_soltion_to_auxfile
 
