@@ -277,7 +277,7 @@
 \cs_new:Npn \__examzh_choices_process_counter_aux:Nn #1#2
   % #1: \@Alph
   {
-    \tl_if_eq:nnTF {#2} { * }
+    \str_if_eq:nnTF {#2} { * }
       {
         % 如果是 \alph* 类型的，效果为 \alph{ \l__examzh_choices_index_int }
         \use:c { __examzh_choices_save_ \cs_to_str:N #1 : }
@@ -298,7 +298,7 @@
 
 \cs_new:Npn \__examzh_choices_set_auto_label_pos:
   {
-    \tl_if_eq:NnT \l__examzh_choices_label_pos_tl { auto }
+    \str_if_eq:VnT \l__examzh_choices_label_pos_tl { auto }
       {
         % 若最小高度超过阈值，推测其中包含插图，将标签位置改为左居中
         \dim_compare:nNnTF
@@ -316,7 +316,7 @@
 \cs_new:Npn \__examzh_choices_calc_columns:
   {
     % 若标签不在底部，将 label-width 和 label-sep 加到 \l__examzh_choices_item_width_dim 里面
-    \tl_if_eq:NnF \l__examzh_choices_label_pos_tl { bottom }
+    \str_if_eq:VnF \l__examzh_choices_label_pos_tl { bottom }
       {
         \dim_add:Nn \l__examzh_choices_item_width_dim
           { \l__examzh_choices_label_width_dim + \l__examzh_choices_label_sep_dim }
@@ -360,7 +360,7 @@
       }
     % 若标签不在底部，将 label-width 和 label-sep 算进来
     % TODO 算进来？那怎么还是 sub？
-    \tl_if_eq:NnF \l__examzh_choices_label_pos_tl { bottom }
+    \str_if_eq:VnF \l__examzh_choices_label_pos_tl { bottom }
       {
         \dim_sub:Nn \l__examzh_choices_item_width_dim
           { \l__examzh_choices_label_width_dim + \l__examzh_choices_label_sep_dim }
@@ -565,7 +565,7 @@
             \noindent
             % \strut
             % 若标签在底部，将图片居中对齐。
-            \tl_if_eq:NnT \l__examzh_choices_label_pos_tl { bottom }
+            \str_if_eq:VnT \l__examzh_choices_label_pos_tl { bottom }
               { \centering }
             \dim_compare:nNnTF
               { \box_wd:N \l_tmpa_box } > { \l__examzh_choices_item_width_dim }
