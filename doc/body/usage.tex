@@ -2452,6 +2452,13 @@
   \kvopt{solution/blank-type}{manual} 的时候增加的垂直空白长度，可以是弹性长度。默认为 |12ex plus 1ex minus 1ex|。
 \end{function}
 
+\paragraph{使用注意事项}
+
+\begin{itemize}
+  \item \emph{v0.2.6 修复：}修复了 \env{solution} 环境与 |align*| 等数学环境结合时的尾随空行问题。若您在旧版本中遇到数学环境后出现异常空白，请更新到最新版本。
+  \item 在 \env{solution} 环境中使用 \env{align*}、\env{gather*} 等 |amsmath| 数学环境时，现已能正确处理环境结尾，不会产生多余空行。
+\end{itemize}
+
 
 \subsubsection{几个列表环境} \label{subsubsec:参数-列表环境}
 
@@ -2485,12 +2492,27 @@
 
 \subsubsection{草稿纸} \label{subsubsec:参数-草稿纸}
 
-\begin{function}[added = 2022-07-03]{draft}
+\begin{function}[added = 2022-07-03, updated = 2025-01-07]{draft}
   \begin{ccnusyntax}[emph={[1]draft}]
     draft = (*\marg{键值列表}*)
     draft/(*\meta{key}*) = (*\meta{value}*)
   \end{ccnusyntax}
-  该选项包含许多子项目。用于设置 \tn{draftpaper} 命令。下面所述的键值，如果不额外说明，则表示可以通过 \tn{examsetup} 进行统一处理，也可以用 于 \tn{draftpaper} 命令的 \meta{键值列表} 针对某一 \tn{draftpaper} 命令调整。具体内容见下。
+  该选项包含许多子项目。用于设置 \tn{draftpaper} 命令。\emph{v0.2.6 起支持多层级键值设置}，可使用 |draft = { ... }| 或 |draft/key = value| 两种等价写法。例如：
+  \begin{latexcode}
+% 方式 1：使用嵌套键值列表
+\examsetup{
+  draft = {
+    show-watermark = true,
+    watermark-size = 120pt
+  }
+}
+% 方式 2：使用多层级键值（等价）
+\examsetup{
+  draft/show-watermark = true,
+  draft/watermark-size = 120pt
+}
+  \end{latexcode}
+  下面所述的键值，如果不额外说明，则表示可以通过 \tn{examsetup} 进行统一处理，也可以用于 \tn{draftpaper} 命令的 \meta{键值列表} 针对某一 \tn{draftpaper} 命令调整。具体内容见下。
 \end{function}
 
 
@@ -3098,12 +3120,14 @@
   \env{calculations} 环境下方额外弹性间距。默认为 |0pt|。
 \end{function}
 
-\begin{function}[added = 2024-02-11]{calculations/hsep,calculations/vsep}
+\begin{function}[added = 2024-02-11, updated = 2025-01-07]{calculations/hsep,calculations/vsep}
   \begin{ccnusyntax}[emph={[1]hsep,vsep}]
     hsep = (*\meta{dimension}*)
     vsep = (*\meta{dimension}*)
   \end{ccnusyntax}
   \opt{hsep} 表示题干之间的水平间距，\opt{vsep} 表示题干之间的垂直间距。\opt{hsep} 默认为 |2em|，\opt{vsep} 默认为 |0em|。
+
+  \emph{注：v0.2.6 起，内部实现优化了双列布局时的列宽计算（从 0.3 倍文本宽度调整为 0.45 倍），改善了排版效果。用户无需修改已有代码。}
 \end{function}
 
 \begin{function}[added = 2024-02-11]{calculations/align}

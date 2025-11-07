@@ -6,6 +6,27 @@
 并且此项目遵守 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)。
 
 
+## [0.2.6] - 2025-01-07
+
+### Added
+
+- 增加 `exam-zh/draft` 的多层级键值对支持，允许更灵活的草稿配置
+
+### Changed
+
+- 修改 `calculations` 环境的宽度参数，从 `0.3\textwidth` 调整为 `0.45\textwidth`，改善计算题排版效果
+
+### Fixed
+
+- 修复 `solution` 环境与 `align*` 数学环境结合时出现的尾随空行问题
+- 将 `\par` 保护起来，防止其被意外展开导致的格式问题
+- 使用字符串比较方式处理 `*` 和 `label-pos` 的值，提高代码健壮性
+
+### Documentation
+
+- 补充 `page/show-foot` 选项的文档说明
+
+
 ## [0.2.5] - 2024-04-28
 
 ### Changed
