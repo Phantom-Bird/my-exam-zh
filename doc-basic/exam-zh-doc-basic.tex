@@ -1,0 +1,68 @@
+\documentclass{xdyydoc}
+
+\newcommand{\DocDate}{2025-11-12}
+\newcommand{\DocVersion}{v0.26}
+\input{exam-zh-doc-basic-setup.tex}
+\usepackage{amssymb}
+
+\begin{document}
+
+% 封面的页边距
+
+\newgeometry{
+  left   = 2.2 in,
+  right  = 1.25 in,
+  top    = 1.25 in,
+  bottom = 1.00 in
+}
+
+\maketitle
+
+\input{./body/cover.tex}
+
+
+% 用户手册的页边距
+
+\newgeometry{
+  left   = 1.75 in,
+  right  = 0.80 in,
+  top    = 1.25 in,
+  bottom = 1.00 in
+}
+
+\tableofcontents
+
+
+% 第1章：快速开始
+\input{./body/chapter01-quickstart.tex}
+
+% 第2章：基础概念
+\input{./body/chapter02-concepts.tex}
+
+% 第3章：创建题目
+\input{./body/chapter03-questions.tex}
+
+% 第4章：常见场景
+\input{./body/chapter04-scenarios.tex}
+
+% 第5章：完整示例
+\input{./body/chapter05-examples.tex}
+
+% 第6章：常见问题
+\input{./body/chapter06-faq.tex}
+
+% 第7章：已知问题与限制
+\input{./body/chapter07-known-issues.tex}
+
+
+% 附录A：进阶学习指引
+\input{./back/next-steps.tex}
+
+% 附录B：精简版提问指南
+\input{./back/ask-questions-simple.tex}
+
+% 附录C：关于作者
+\input{./back/about-author.tex}
+
+
+\end{document}

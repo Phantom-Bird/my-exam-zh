@@ -459,12 +459,38 @@
 
 \subsubsection{填空题}
 
-\begin{function}[updated = 2022-07-27]{\fillin}
+\begin{function}[updated = 2025-11-07]{\fillin}
   \begin{ccnusyntax}[emph={[2]\fillin}]
     \fillin(*\oarg{键值列表}*)(*\oarg{答案}*)
     \fillin*(*\oarg{键值列表}*)(*\oarg{答案}*)
   \end{ccnusyntax}
-  填空（下划线或括号）。\meta{答案} 可以受~\ref{subsubsec:参数-题干} 节的 \cmd{question/show-answer} 键值控制隐藏。\meta{键值列表} 见~\ref{subsubsec:参数-填空题} 节。\tn{fillin} 不可换行，但是会自动根据内容深度提升基线（比如排版分数不会“压线”），但无法自动换行；\tn{fillin*} 可以自动换行但是没有前者的提升基线的功能，且 \tn{fillin*} 的换行功能只适用于 \kvopt{fillin/type}{line}、\kvopt{fillin/type}{paren} 和 \kvopt{fillin/type}{blank}。
+  填空命令，可生成下划线或括号等形式。\meta{答案} 可以受~\ref{subsubsec:参数-题干} 节的 \cmd{question/show-answer} 键值控制显示或隐藏。\meta{键值列表} 见~\ref{subsubsec:参数-填空题} 节。
+
+  \paragraph{换行行为说明}
+
+  \tn{fillin} 和 \tn{fillin*} 的换行行为取决于是否显示答案：
+
+  \begin{itemize}
+    \item \textbf{显示答案时}（\kvopt{show-answer}{true}）：
+      \begin{itemize}
+        \item \tn{fillin}：答案内容\textbf{不可换行}，但会自动根据内容深度提升基线（如排版分数不会"压线"）
+        \item \tn{fillin*}：答案内容同样\textbf{不可换行}
+      \end{itemize}
+
+    \item \textbf{不显示答案时}（\kvopt{show-answer}{false}）：
+      \begin{itemize}
+        \item \tn{fillin}：生成固定长度的占位符（下划线/括号等），默认\textbf{不换行}。\emph{v0.2.6 起}，当 \kvopt{no-answer-type}{none} 且宽度超出行宽时，会自动换行
+        \item \tn{fillin*}：\textbf{可以自动换行}，但没有基线提升功能。换行功能仅适用于 \kvopt{fillin/type}{line}、\kvopt{fillin/type}{paren} 和 \kvopt{fillin/type}{blank}
+      \end{itemize}
+  \end{itemize}
+
+  \paragraph{使用建议}
+
+  \begin{itemize}
+    \item 短答案（如数字、单词）：使用 \tn{fillin}
+    \item 长答案需要换行：使用 \tn{fillin*}，并设置 \kvopt{show-answer}{false}
+    \item 宽度超出行宽的占位符：使用 \tn{fillin} 配合 \kvopt{no-answer-type}{none}（v0.2.6+）
+  \end{itemize}
 \end{function}
 
 注意，\tn{fillin} 命令经过处理，|\fillin[<1>]| 表示 |\fillin[<答案>]|（而不是通常定义两个可选参数命令，若只写一个的时候默认为第一个参数），而如果仅仅改变 \tn{fillin} 的类型（见下）而不输入答案，则需要使用 |\fillin[type=paren][]|。这样设计是考虑到：大部分时候都是无答案和输入答案两种情况，而单独改某一个 \tn{fillin} 的类型的情况很少，一般都是一些题目统一改，这个时候在需要修改的 \tn{fillin} 之前使用
@@ -482,6 +508,31 @@
   即可。
 
 需要注意的是，如果 \tn{fillin} 的参数重含有不配对的中括号时会报错，如 |\fillin[$(−\infty, 1]$]|。这时需要使用大括号将内容保护起来：|\fillin[{$(−\infty, 1]$}]|。
+
+\begin{latexexample}{\tn{fillin} 和 \tn{fillin*} 的换行行为对比}
+  \examsetup{fillin/no-answer-type=none}
+  % 情况 1：显示答案时（都不换行）
+  \examsetup{question/show-answer = true}
+
+  短答案：\fillin[42]
+
+  长答案（不换行）：\fillin[$\frac{1}{2}$ 这是一个很长的答案内容，这是一个很长的答案内容，这是一个很长的答案内容，这是一个很长的答案内容。]
+
+  长答案（换行）：\fillin*[$\frac{1}{2}$ 这是一个很长的答案内容，这是一个很长的答案内容，这是一个很长的答案内容，这是一个很长的答案内容。]
+
+  \vspace{1em}
+
+  % 情况 2：不显示答案时
+  \examsetup{question/show-answer = false}
+
+  默认固定长度：\fillin[width=5em][答案]
+
+  超宽自动换行（v0.2.6+）：
+  测试 \fillin[width=1.2\linewidth][长答案]
+
+  使用 \verb|\fillin*| 换行：
+  测试 \fillin*[width=1.2\linewidth][长答案内容]
+\end{latexexample}
 
 
 \begin{function}[added = 2022-07-21]{\AddFillinCounter}
@@ -2101,7 +2152,7 @@
     }
   }
   \begin{question}
-    一共有 \paren 个苹果？
+    一共有 \paren[A] 个苹果？
     \begin{choices}
       \item 1
       \item 2
@@ -2117,7 +2168,7 @@
   }
 
   \begin{question}
-    一共有 \paren 个苹果？
+    一共有 \paren[B] 个苹果？
     \begin{choices}
       \item 1
       \item 2
@@ -2232,6 +2283,9 @@
 
   测试
   \fillin[width = 1.1\linewidth][答案] 测试
+
+  测试
+  \fillin[width-type = fill, width = 1.1\linewidth][答案] 测试
 
   测试
   \fillin[width-type = normal, width = 1.1\linewidth][答案] 测试
@@ -2492,7 +2546,7 @@
 
 \subsubsection{草稿纸} \label{subsubsec:参数-草稿纸}
 
-\begin{function}[added = 2022-07-03, updated = 2025-01-07]{draft}
+\begin{function}[added = 2022-07-03, updated = 2025-11-07]{draft}
   \begin{ccnusyntax}[emph={[1]draft}]
     draft = (*\marg{键值列表}*)
     draft/(*\meta{key}*) = (*\meta{value}*)
@@ -3120,7 +3174,7 @@
   \env{calculations} 环境下方额外弹性间距。默认为 |0pt|。
 \end{function}
 
-\begin{function}[added = 2024-02-11, updated = 2025-01-07]{calculations/hsep,calculations/vsep}
+\begin{function}[added = 2024-02-11, updated = 2025-11-07]{calculations/hsep,calculations/vsep}
   \begin{ccnusyntax}[emph={[1]hsep,vsep}]
     hsep = (*\meta{dimension}*)
     vsep = (*\meta{dimension}*)

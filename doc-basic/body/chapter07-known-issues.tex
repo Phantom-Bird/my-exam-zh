@@ -1,0 +1,475 @@
+% !TeX root = ../exam-zh-doc-basic.tex
+
+\section{已知问题与限制}
+
+本章列出 \cls{exam-zh} 目前已知的问题、限制和不支持的功能。了解这些信息可以帮助你：
+
+\begin{itemize}
+  \item 避免使用有问题的功能组合
+  \item 提前规划替代方案
+  \item 理解某些问题为什么无法解决
+\end{itemize}
+
+\textbf{重要提示：}本文档力求诚实透明，不会对未来修复做出承诺。以下问题可能永久存在。
+
+
+\subsection{项目维护状态}
+
+\subsubsection{项目已停止维护}
+
+\cls{exam-zh} 于 \textbf{2024 年 4 月 26 日}宣布停止维护。这意味着：
+
+\begin{itemize}
+  \item \textbf{不会有新功能开发}：用户请求的新功能可能无法实现
+  \item \textbf{不会修复非严重 bug}：一般性问题可能不会得到官方修复
+  \item \textbf{兼容性问题靠社区}：与新版本 \LaTeX{} 的兼容需要社区贡献
+  \item \textbf{文档不再更新}：完整文档可能不会同步最新变化
+\end{itemize}
+
+\subsubsection{建议的使用策略}
+
+\begin{enumerate}
+  \item \textbf{使用稳定的 \TeX{} 环境}
+    \begin{itemize}
+      \item 推荐 \TeX{} Live 2023 或 2024
+      \item 避免频繁升级系统
+    \end{itemize}
+
+  \item \textbf{遇到问题先查阅本文档}
+    \begin{itemize}
+      \item 大部分问题已在 FAQ 和本章节中记录
+      \item 提供了可用的 workaround
+    \end{itemize}
+
+  \item \textbf{合理降低期望}
+    \begin{itemize}
+      \item 接受某些功能无法实现
+      \item 必要时考虑其他解决方案
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection{\LaTeX{} 环境要求与限制}
+
+\subsubsection{必须使用 \XeLaTeX{}}
+
+\textbf{限制：}\cls{exam-zh} \textbf{只支持} \XeLaTeX{} 编译，不支持 \pdfLaTeX{} 或 \LuaLaTeX{}。
+
+\textbf{原因：}
+
+\begin{itemize}
+  \item 依赖 |fontspec| 宏包处理中文字体
+  \item 使用 |unicode-math| 进行数学字体设置
+  \item 基于 |ctex| 宏集的 \XeLaTeX{} 模式
+\end{itemize}
+
+\textbf{后果：}如果使用其他编译器，会出现严重错误，无法生成 PDF。
+
+\subsubsection{\TeX{} Live 版本要求}
+
+\textbf{最低要求：}\TeX{} Live 2020
+
+\textbf{推荐版本：}\TeX{} Live 2022 或更高
+
+\textbf{已知兼容性问题：}
+
+\begin{itemize}
+  \item \textbf{\TeX{} Live 2019 及更早}：\LaTeX3 语法不兼容，无法编译
+  \item \textbf{\TeX{} Live 2020-2021}：部分功能可用，但可能出现键值设置错误
+  \item \textbf{\TeX{} Live 2025（2025-10 后）}：\LaTeX3 内核更新导致 |choices| 环境失效（见下节）
+\end{itemize}
+
+
+\subsection{\LaTeX3 更新兼容性问题 ⚠️}
+
+\subsubsection{2025-10-09 更新导致 choices 环境失效}
+
+\textbf{Issue ID：}\#ID3FX0
+
+\textbf{发现时间：}2025 年 10 月 24 日
+
+\textbf{问题描述：}
+
+2025 年 10 月 9 日的 \LaTeX3 内核更新后，选择题的 |choices| 环境无法正常工作：
+
+\begin{itemize}
+  \item 选项不排列或排列错误
+  \item 编译时可能报错
+  \item 选项标签显示异常
+\end{itemize}
+
+\textbf{影响范围：}
+
+\begin{itemize}
+  \item 所有使用 |choices| 环境的文档
+  \item 选择题的 ABCD 选项排版
+  \item 自动列数计算功能
+\end{itemize}
+
+\textbf{临时解决方案：}
+
+\begin{enumerate}
+  \item \textbf{降级 \LaTeX3 核心包}（推荐）
+    \begin{shellcode}[morekeywords={tlmgr}]
+  # 备份当前环境
+  tlmgr backup --all
+
+  # 安装 2025-09-01 版本的 l3kernel
+  tlmgr install l3kernel --reinstall --with-doc
+    \end{shellcode}
+
+  \item \textbf{使用 \TeX{} Live 2024}
+    \begin{itemize}
+      \item 不要升级到 2025 版本
+      \item 或使用虚拟机/容器固定环境
+    \end{itemize}
+
+  \item \textbf{手动排版选项}（临时）
+    \begin{latexcode}
+  % 如果 choices 彻底不可用，使用 enumerate
+  \begin{question}
+    题目内容 \paren[B]
+
+    \begin{enumerate}[label=\Alph*., itemsep=0.5em]
+      \item 选项1
+      \item 选项2
+      \item 选项3
+      \item 选项4
+    \end{enumerate}
+  \end{question}
+    \end{latexcode}
+\end{enumerate}
+
+\textbf{长期展望：}
+
+由于项目已停止维护，此问题\textbf{可能永久无法得到官方修复}。建议：
+
+\begin{itemize}
+  \item 继续使用旧版本 \TeX{} Live
+  \item 关注社区是否有第三方补丁
+  \item 考虑迁移到其他维护中的试卷模板
+\end{itemize}
+
+
+\subsection{图文混排限制}
+
+\subsubsection{wrapstuff 在深层嵌套环境中失效}
+
+\textbf{Issue ID：}\#ID3UMZ
+
+\textbf{问题描述：}
+
+在 |problem| 或 |question| 环境内，使用两层或更多 |enumerate| 环境后，|wrapstuff| 图文绕排会报错：
+
+\begin{latexcode}
+  \begin{problem}
+    \begin{enumerate}
+      \item 第一问
+        \begin{enumerate}
+          \item 小问(a)
+            \begin{wrapstuff}  % ❌ 报错
+              \includegraphics{fig.png}
+            \end{wrapstuff}
+        \end{enumerate}
+    \end{enumerate}
+  \end{problem}
+\end{latexcode}
+
+\textbf{技术原因：}
+
+|wrapstuff| 宏包在处理多层嵌套列表时，盒子计算出现问题。
+
+\textbf{已知不可用的组合：}
+
+\begin{itemize}
+  \item |problem| + 2层 |enumerate| + |wrapstuff|
+  \item |question| + |itemize| + |wrapstuff| + 选择题
+  \item |choices| 前直接使用 |wrapstuff|（Issue \#I5KSB9）
+\end{itemize}
+
+\textbf{推荐替代方案：}
+
+\begin{enumerate}
+  \item \textbf{使用 minipage}（最稳妥）
+    \begin{latexcode}
+  \begin{minipage}[t]{0.6\textwidth}
+    题目文字，可以很长很长，
+    会自动换行对齐。
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.35\textwidth}
+    \includegraphics[width=\linewidth]{fig.png}
+  \end{minipage}
+    \end{latexcode}
+
+  \item \textbf{调整环境顺序}
+    \begin{latexcode}
+  % 先放图片，再开始列表
+  \begin{problem}
+    \begin{wrapstuff}[5]{0.3\textwidth}
+      \includegraphics[width=\linewidth]{fig.png}
+    \end{wrapstuff}
+    题目文字...
+    % 不要在这里嵌套列表
+  \end{problem}
+    \end{latexcode}
+
+  \item \textbf{避免深层嵌套}：设计题目时减少列表层级
+\end{enumerate}
+
+\subsubsection{textfigure 基线对齐问题}
+
+\textbf{Issue ID：}\#ICEH9X
+
+\textbf{问题：}使用 |\textfigure| 插入图片时，题号和图片的基线对齐异常。
+
+\textbf{当前状态：}无官方解决方案。
+
+\textbf{Workaround：}
+
+\begin{latexcode}
+  % 手动调整垂直位置
+  \raisebox{-1em}{\textfigure{...}}
+\end{latexcode}
+
+
+\subsection{填空题限制}
+
+\subsubsection{长答案下划线不自动换行}
+
+\textbf{Issue ID：}\#IAXE1N
+
+\textbf{问题：}
+
+填空题答案较长时，下划线会超出页面右边界，不会自动换行：
+
+\begin{latexcode}
+  % 如果答案很长很长很长...
+  计算结果为 \fillin[这是一个非常非常长的答案，会超出页面]
+\end{latexcode}
+
+\textbf{技术原因：}
+
+下划线使用 |\leaders| 机制生成，无法自动断行。
+
+\textbf{解决方案：}
+
+\begin{enumerate}
+  \item 手动控制宽度：|\fillin[width = 8em][答案]|
+  \item 缩短答案文本或使用缩写
+  \item 分成多个填空：|\fillin[答案1] 和 \fillin[答案2]|
+\end{enumerate}
+
+\textbf{注意：}此为设计限制，短期内无法修复。
+
+\subsubsection{特殊符号需要转义}
+
+填空题答案中使用以下符号时需要特殊处理：
+
+\begin{center}
+\begin{tabular}{lll}
+  \hline
+  \textbf{符号} & \textbf{问题} & \textbf{解决方法} \\
+  \hline
+  |[]| & 与可选参数冲突 & |\fillin[{$[2,3)$}]| \\
+  |%| & 注释符 & |\fillin[\%]| 或 |\fillin[百分之...]| \\
+  |&| & 表格分隔符 & |\fillin[\&]| \\
+  |$| & 数学模式 & |\fillin[\$100]| \\
+  \hline
+\end{tabular}
+\end{center}
+
+
+\subsection{不支持的功能}
+
+以下功能在当前版本中\textbf{不支持}，且由于项目停止维护，\textbf{未来也不会实现}。
+
+\subsubsection{答案后置/集中显示}
+
+\textbf{Issue ID：}\#ICMVN4, \#I5J7YG（高频需求）
+
+\textbf{需求：}
+
+用户希望选择题的 |\paren[]| 答案和填空题的 |\fillin[]| 答案能像解答题一样，集中显示在试卷末尾形成答案卷。
+
+\textbf{当前状态：}
+
+\begin{itemize}
+  \item |solution| 环境支持后置（|show-solution = show-move|）
+  \item |\paren[]| 和 |\fillin[]| 只能原位显示/隐藏
+  \item 没有收集答案并重排的机制
+\end{itemize}
+
+\textbf{临时方案：}
+
+手动在文档末尾整理答案（参见 FAQ Q15）。
+
+\subsubsection{Beamer 演示文稿支持}
+
+\textbf{Issue ID：}\#IBTK0L
+
+\textbf{限制：}\cls{exam-zh} 基于 |ctexbook| 文档类，无法用于 |beamer| 演示文稿。
+
+\textbf{原因：}|beamer| 和 |book| 类的底层机制完全不同，无法兼容。
+
+\textbf{建议：}使用其他专门的 beamer 中文模板。
+
+\subsubsection{特殊纸张尺寸}
+
+\textbf{Issue ID：}\#IC3HCY（B3），\#I63XSP（8K）
+
+\textbf{需求：}
+
+\begin{itemize}
+  \item B3 纸张（学校常用）
+  \item 8K 纸张（293mm × 393mm）
+  \item 其他自定义尺寸
+\end{itemize}
+
+\textbf{当前状态：}
+
+默认只支持 A3/A4/B4/B5 等标准尺寸。
+
+\textbf{手动配置方法：}
+
+\begin{latexcode}[deletetexcs={\documentclass},morekeywords={\documentclass}]
+  \documentclass{exam-zh}
+
+  \usepackage{geometry}
+  \geometry{
+    paperwidth = 364mm,   % B3 宽度
+    paperheight = 515mm,  % B3 高度
+    left = 2cm,
+    right = 2cm,
+    top = 2.5cm,
+    bottom = 2cm
+  }
+\end{latexcode}
+
+\textbf{注意：}密封线等元素可能需要手动调整位置。
+
+\subsubsection{从远程 URL 加载图片}
+
+\textbf{Issue ID：}\#I6YSOH
+
+\textbf{限制：}\XeLaTeX{} 本身不支持从网络 URL 直接加载图片。
+
+\textbf{原因：}出于安全考虑，\LaTeX{} 禁止网络访问。
+
+\textbf{解决方案：}
+
+\begin{enumerate}
+  \item 下载图片到本地后引用
+  \item 使用外部脚本自动下载
+  \item 考虑使用 \LuaLaTeX{} + |luahttp| 宏包（但 \cls{exam-zh} 不支持）
+\end{enumerate}
+
+
+\subsection{已知 Bug（未修复）}
+
+以下 bug 在当前版本中存在，且可能永久无法修复。
+
+\subsubsection{偶发性行距异常}
+
+\textbf{Issue ID：}\#I7QTGG
+
+\textbf{现象：}
+
+在某些情况下，自动换页后新页面的行距会异常增大，看起来稀疏。
+
+\textbf{原因：}
+
+\LaTeX{} 的 |\flushbottom| 机制会尝试对齐页面底部，通过拉伸垂直间距实现。
+
+\textbf{Workaround：}
+
+\begin{enumerate}
+  \item 在文档开头添加：|\raggedbottom|（页面底部不对齐）
+  \item 手动调整内容或强制换页
+  \item 局部使用 |\vspace{-1em}| 压缩间距
+\end{enumerate}
+
+\textbf{注意：}这是 \LaTeX{} 的设计特性，难以完全避免。
+
+\subsubsection{solution 跨页时密封线变色}
+
+\textbf{Issue ID：}\#I5JJT3
+
+\textbf{现象：}
+
+当 |solution| 答案内容跨页时，密封线颜色会变成答案文字的颜色。
+
+\textbf{状态：}已在后续版本修复，但如果使用旧版本可能仍存在。
+
+\textbf{解决：}更新到 v0.1.18 或更高版本。
+
+
+\subsection{获取社区支持}
+
+尽管项目已停止官方维护，但你仍可以通过以下方式获取帮助：
+
+\subsubsection{Issue 追踪}
+
+\begin{itemize}
+  \item \textbf{GitHub}：\url{https://github.com/xkwxdyy/exam-zh/issues}
+  \item \textbf{Gitee}：\url{https://gitee.com/xkwxdyy/exam-zh/issues}
+\end{itemize}
+
+\textbf{提问前：}
+
+\begin{enumerate}
+  \item 检查本章节是否已列出该问题
+  \item 搜索 Issues，查看是否有相同问题
+  \item 准备完整的最小可复现示例（MWE）
+\end{enumerate}
+
+\subsubsection{QQ 交流群}
+
+群号：652500180
+
+\begin{itemize}
+  \item 可以快速提问和讨论
+  \item 其他用户可能遇到过类似问题
+  \item 分享使用技巧和 workaround
+\end{itemize}
+
+\subsubsection{社区贡献}
+
+如果你有能力修复某些问题，欢迎：
+
+\begin{itemize}
+  \item 提交 Pull Request 到 GitHub/Gitee
+  \item 分享你的解决方案到 Issues
+  \item 维护非官方的 fork 版本
+\end{itemize}
+
+
+\subsection{总结与建议}
+
+\begin{enumerate}
+  \item \textbf{接受限制}
+    \begin{itemize}
+      \item 了解哪些功能不可用
+      \item 设计题目时避开已知问题
+    \end{itemize}
+
+  \item \textbf{使用稳定环境}
+    \begin{itemize}
+      \item \TeX{} Live 2023/2024
+      \item 不要轻易升级系统
+    \end{itemize}
+
+  \item \textbf{备份和测试}
+    \begin{itemize}
+      \item 重要试卷提前测试编译
+      \item 保留可用的 PDF 版本
+    \end{itemize}
+
+  \item \textbf{寻找替代方案}
+    \begin{itemize}
+      \item 对于严重问题，考虑其他模板
+      \item 或使用 Word 等工具
+    \end{itemize}
+\end{enumerate}
+
+\textbf{最重要的：}理解工具的边界，合理调整预期。\cls{exam-zh} 虽然不再维护，但对于大多数基本需求仍然可用。

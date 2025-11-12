@@ -1,0 +1,86 @@
+% 基础宏包
+\usepackage{xeCJKfntef, xpinyin}
+\usepackage{graphicx}
+\usepackage{zhlipsum}
+\usepackage{tabularray}
+
+% exam-zh 相关宏包（使用相对路径）
+\usepackage{../exam-zh-choices}
+\usepackage{../exam-zh-question}
+\usepackage{../exam-zh-symbols}
+\usepackage{../exam-zh-chinese-english}
+\usepackage{../exam-zh-textfigure}
+\usepackage{../exam-zh-math}
+
+% examsetup 命令定义
+\ExplSyntaxOn
+\NewDocumentCommand \examsetup { m }
+  { \keys_set:nn { exam-zh } {#1} }
+\ExplSyntaxOff
+
+% 图片路径
+\graphicspath{{figures}{../doc/figures}}
+
+% PDF 元数据
+\hypersetup{
+  pdftitle  = {exam-zh 入门指南：中国试卷 LaTeX 模板新手教程},
+  pdfauthor = {夏康玮}
+}
+
+% 全角标点处理
+\def\FSID{"{\xeCJKsetup{PunctStyle=banjiao}。}"} % U+3002
+\def\FSFW{"{\xeCJKsetup{PunctStyle=banjiao}．}"} % U+FF0E
+\def\COFW{"{\xeCJKsetup{PunctStyle=banjiao}：}"} % U+FF1A
+\def\SCFW{"{\xeCJKsetup{PunctStyle=banjiao}；}"} % U+FF1B
+
+
+% 文档标题和作者信息
+\title{\textcolor{MaterialIndigo800}{%
+  \textbf{exam-zh 入门指南\\[0.5em]
+  \large 中国试卷 \LaTeX \xpinyin[font=\sffamily,format=\color{MaterialIndigo800}]{模}{mu2}板新手教程}}}
+\author{%
+  夏康玮\thanks{%
+    李泽平构建了 \cls{exam-zh} 的最初的基本框架；张庭瑄开发 \cls{exam-zh-font} 模块；郭李军开发了连线题环境}
+}
+\date{\DocDate\quad \DocVersion%
+  \thanks{%
+    \textbf{入门文档}（推荐新手阅读）\\
+    完整API参考见 \file{exam-zh-doc.pdf}\\[0.5em]
+    \url{https://gitee.com/xkwxdyy/exam-zh} \\
+    \hspace*{1.5em} QQ 用户交流群：652500180
+  }
+}
+
+% 评分框命令（复用）
+\ExplSyntaxOn
+\NewDocumentCommand { \scoringbox } { s }
+  {
+    \IfBooleanTF {#1}
+      { \__examzh_scoringbox_onecolumn: }
+      { \__examzh_scoringbox_twocolumn: }
+  }
+\cs_new_protected:Nn \__examzh_scoringbox_twocolumn:
+  {
+    \begin{tabular}{|c|c|}
+      \hline
+      得分 & \rule{3em}{0pt}\rule[-0.7em]{0pt}{2em} \\\hline
+      阅卷人 & \rule{3em}{0pt}\rule[-0.7em]{0pt}{2em} \\\hline
+    \end{tabular}
+  }
+\cs_new_protected:Nn \__examzh_scoringbox_onecolumn:
+  {
+    \begin{tabular}{|c|}
+      \hline
+      得分\rule[-0.7em]{0pt}{2em} \\\hline
+      \rule[-0.7em]{0pt}{2em} \\\hline
+    \end{tabular}
+  }
+\ExplSyntaxOff
+
+% 示例环境后重置题号
+\AddToHook{env/latexexample/after}
+  {%
+    \examsetup{
+      question/index=1
+    }
+  }

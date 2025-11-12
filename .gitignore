@@ -340,3 +340,7 @@ CLAUDE.md
 CTAN.md
 
 requirements.txt
+
+.claude/
+
+issues/
