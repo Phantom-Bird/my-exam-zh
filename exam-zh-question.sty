@@ -9,7 +9,7 @@
 \RequirePackage{expl3}
 \RequirePackage{xparse}
 
-\ProvidesExplPackage {exam-zh-question} {2025-11-07} {v0.26}
+\ProvidesExplPackage {exam-zh-question} {2025-11-12} {v0.26}
   {exam-zh question module}
 
 
@@ -1216,7 +1216,13 @@
       {
         { blacktriangle } { \__examzh_fillin_no_answer_typeset_blacktriangle: }
         { counter } { \__examzh_fillin_no_answer_typeset_counter: }
-        { none } { \__examzh_fillin_output_unbreakable_F: }
+        { none }
+          {
+            % 自动检测宽度是否超出边界，超宽时自动换行
+            \dim_compare:nNnTF { \l__examzh_fillin_F_width_dim } > { \linewidth }
+              { \__examzh_fillin_output_breakable_F: }
+              { \__examzh_fillin_output_unbreakable_F: }
+          }
       }
       {
         \msg_error:nnx { exam-zh / fillin } { no-such-noanswertype }

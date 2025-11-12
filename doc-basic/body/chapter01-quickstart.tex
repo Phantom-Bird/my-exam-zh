@@ -1,0 +1,223 @@
+% !TeX root = ../exam-zh-doc-basic.tex
+
+\section{快速开始}
+
+欢迎使用 \cls{exam-zh}！本章将帮助你在 10 分钟内创建第一份中文试卷。
+
+\subsection{什么是 exam-zh}
+
+\cls{exam-zh} 是一个专为中国试卷设计的 \LaTeX{} 模板，让你能用代码的方式高效地制作试卷。
+
+\textbf{一句话介绍：}用简洁的代码，排版专业的中文试卷。
+
+\textbf{三大核心特性：}
+
+\begin{enumerate}
+  \item \textbf{选项自动排版}：选择题的选项会自动排列成合适的列数，无需手动调整
+  \item \textbf{答案智能控制}：一键切换显示/隐藏答案，轻松生成教师版和学生版
+  \item \textbf{密封线自定义}：支持多种密封线样式，符合中国试卷规范
+\end{enumerate}
+
+\textbf{适合谁用：}
+
+\begin{itemize}
+  \item 中小学教师，需要制作考试试卷
+  \item 培训机构老师，需要批量制作测试题
+  \item 学生，想要制作练习题或模拟试卷
+  \item 任何需要规范排版试卷的用户
+\end{itemize}
+
+
+\subsection{安装与验证}
+
+\subsubsection{快速安装}
+
+如果你已经安装了 \TeX{} 发行版（\TeXLive{} 或 \MiKTeX{}），只需在命令行中执行：
+
+\begin{shellcode}[morekeywords={tlmgr,install}]
+  tlmgr install exam-zh
+\end{shellcode}
+
+\emph{提示：}Windows 用户可能需要以管理员权限运行命令提示符。
+
+\subsubsection{检查安装}
+
+创建一个测试文件 \file{test.tex}，输入以下内容：
+
+\begin{latexcode}[deletetexcs={\documentclass},morekeywords={\documentclass}]
+  \documentclass{exam-zh}
+  \begin{document}
+    安装成功！
+  \end{document}
+\end{latexcode}
+
+使用 \XeLaTeX{} 编译：
+
+\begin{shellcode}[morekeywords={xelatex}]
+  xelatex test.tex
+\end{shellcode}
+
+如果生成了 \file{test.pdf} 并显示"安装成功！"，恭喜你，可以开始使用了！
+
+\paragraph{注意事项}
+\begin{itemize}
+  \item \textbf{必须使用 \XeLaTeX{} 编译}，不支持 \pdfLaTeX{} 或 \LuaLaTeX{}
+  \item 确保使用 \TeX{} Live 2020 或更新版本
+  \item 在 Overleaf 或 TeXPage 等在线平台使用时，需在文档开头添加 |\let\stop\empty|
+\end{itemize}
+
+
+\subsection{5分钟创建第一份试卷}
+
+让我们从最简单的例子开始。创建一个新文件 \file{my-first-exam.tex}，输入以下内容：
+
+\begin{latexcode}[deletetexcs={\documentclass},morekeywords={\documentclass}]
+  \documentclass{exam-zh}
+
+  \begin{document}
+
+  % 设置试卷标题和科目
+  \title{数学测试}
+  \subject{数学}
+  \maketitle
+
+  % 第一道选择题
+  \begin{question}
+    $1 + 1 = $ \paren[C]
+    \begin{choices}
+      \item $0$
+      \item $1$
+      \item $2$  % 正确答案
+      \item $3$
+    \end{choices}
+  \end{question}
+
+  % 第二道选择题
+  \begin{question}
+    下列哪个数是质数？\paren[B]
+    \begin{choices}
+      \item $4$
+      \item $5$  % 正确答案
+      \item $6$
+      \item $8$
+    \end{choices}
+  \end{question}
+
+  \end{document}
+\end{latexcode}
+
+使用 \XeLaTeX{} 编译：
+
+\begin{shellcode}[morekeywords={xelatex}]
+  xelatex my-first-exam.tex
+\end{shellcode}
+
+\textbf{恭喜你！}你已经创建了第一份试卷。现在让我们理解这段代码：
+
+\begin{enumerate}
+  \item |\documentclass{exam-zh}|：声明使用 \cls{exam-zh} 文档类
+  \item |\title{数学测试}|：设置试卷标题
+  \item |\subject{数学}|：设置科目名称
+  \item |\maketitle|：生成标题和科目
+  \item |\begin{question}...\end{question}|：创建一道题目
+  \item |\paren[C]|：在题目后添加括号，|[C]| 表示答案是选项 C（默认隐藏）
+  \item |\begin{choices}...\end{choices}|：创建选择题的选项列表
+  \item |\item|：每个选项
+\end{enumerate}
+
+
+\subsection{显示或隐藏答案}
+
+默认情况下，答案是隐藏的（学生版）。如果要显示答案（教师版），只需在文档开头添加配置：
+
+\begin{latexcode}[deletetexcs={\documentclass},morekeywords={\documentclass}]
+  \documentclass{exam-zh}
+
+  % 显示答案（教师版）
+  \examsetup{
+    paren/show-paren = true,
+    question/show-answer = true
+  }
+
+  \begin{document}
+    % ... 试卷内容
+  \end{document}
+\end{latexcode}
+
+再次编译，你会发现答案显示出来了！
+
+\textbf{小技巧：}通过注释或取消注释 |\examsetup| 这几行，就能轻松切换学生版和教师版。
+
+
+\subsection{添加填空题和解答题}
+
+让我们创建一份更完整的试卷：
+
+\begin{latexcode}[deletetexcs={\documentclass},morekeywords={\documentclass}]
+  \documentclass{exam-zh}
+
+  \begin{document}
+
+  \title{数学测试}
+  \subject{数学}
+  \maketitle
+
+  % 选择题
+  \begin{question}
+    $1 + 1 = $ \paren[C]
+    \begin{choices}
+      \item $0$
+      \item $1$
+      \item $2$
+      \item $3$
+    \end{choices}
+  \end{question}
+
+  % 填空题
+  \begin{question}
+    圆周率 $\uppi \approx$ \fillin[3.14]（保留两位小数）。
+  \end{question}
+
+  % 解答题
+  \begin{problem}[points = 10]
+    计算：$(x + 1)^2$
+    \begin{solution}
+      解：$(x + 1)^2 = x^2 + 2x + 1$
+    \end{solution}
+  \end{problem}
+
+  \end{document}
+\end{latexcode}
+
+\textbf{新增知识点：}
+
+\begin{itemize}
+  \item |\fillin[答案]|：创建填空题，答案默认隐藏
+  \item |\begin{problem}|：创建解答题（与 |question| 类似，但用于大题）
+  \item |[points = 10]|：设置题目分值为 10 分
+  \item |\begin{solution}|：解答题的答案部分
+\end{itemize}
+
+
+\subsection{下一步学习路线}
+
+到这里，你已经掌握了 \cls{exam-zh} 的基本使用！接下来：
+
+\begin{enumerate}
+  \item \textbf{第 2 章}：了解 \LaTeX{} 和 \cls{exam-zh} 的基础概念
+  \item \textbf{第 3 章}：学习更多题型和功能（分值显示、题号定制等）
+  \item \textbf{第 4 章}：掌握常见场景（页面设置、草稿纸、密封线等）
+  \item \textbf{第 5 章}：参考完整示例，复制使用
+  \item \textbf{第 6 章}：遇到问题时查阅 FAQ
+\end{enumerate}
+
+\textbf{提示：}你可以跳过第 2 章，直接查阅后面需要的功能。第 2 章适合完全不了解 \LaTeX{} 的新手。
+
+\subsection{常用资源}
+
+\begin{itemize}
+  \item \textbf{完整文档}：\file{exam-zh-doc.pdf}（查询详细参数）
+  \item \textbf{示例代码}：\file{examples-basic/} 目录（可直接复制）
+  \item \textbf{项目主页}：\url{https://gitee.com/xkwxdyy/exam-zh}
+  \item \textbf{QQ 交流群}：652500180
+\end{itemize}

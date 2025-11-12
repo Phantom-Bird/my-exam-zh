@@ -6,7 +6,7 @@
 并且此项目遵守 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)。
 
 
-## [0.2.6] - 2025-01-07
+## [0.2.6] - 2025-11-07
 
 ### Added
 
@@ -19,6 +19,7 @@
 ### Fixed
 
 - 修复 `solution` 环境与 `align*` 数学环境结合时出现的尾随空行问题
+- 修复 `\fillin` 命令在 `no-answer-type=none` 时超宽内容无法自动换行的问题
 - 将 `\par` 保护起来，防止其被意外展开导致的格式问题
 - 使用字符串比较方式处理 `*` 和 `label-pos` 的值，提高代码健壮性
 

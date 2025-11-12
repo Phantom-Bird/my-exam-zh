@@ -1,29 +1,45 @@
 \documentclass{exam-zh}
-\title{测试}
-\subject{基础}
-\begin{document}
-\maketitle
 
-\section{选择题}
+\examsetup{
+  fillin = {
+    type           = line,
+    show-answer    = false,
+    no-answer-type = none,
+    width-type     = normal
+  },
+}
+
+\usepackage{zhlipsum}
+
+\begin{document}
 
 \begin{question}
-  以下程序的运行结果为 \paren。
+  一共 \fillin[$\dfrac12$, 一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？] 个苹果？
 
-  % \begin{verbatim}
-  %   #include <iostream>
-  %   int main() {
-  %     std::cout << "Hello, world!" << std::endl;
-  %   }
-  % \end{verbatim}
-
-  % \begin{choices}
-  %   \item \verb+Alpha+
-  %   \item \verb-Beta-
-  %   \item \verb,Gamma,
-  %   \item \verb|Delta|
-  % \end{choices}
+  一共 \fillin*[$\dfrac12$, 一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？一共个苹果？] 个苹果？
 \end{question}
 
-\section{填空题}
+\begin{question}
+  一短一长：\fillin[width = 4em][短答案]。\fillin[width = 1.1\linewidth][长答案]
+\end{question}
+
+\begin{question}
+  一长一短：\fillin[width = 1.1\linewidth][长答案]。 \fillin[width = 4em][短答案]
+\end{question}
+
+\begin{question}
+  一长一长：\fillin[width = 1.01\linewidth][长答案]。
+  \fillin[width-type = fill,width = 1.1\linewidth][短答案]
+\end{question}
+
+\begin{question}
+  一长一长：\fillin*[长答案]
+
+  一长一长：\fillin[width = 1.1\linewidth][长答案]
+
+  % \fillin*[width-type = fill,width = 1.1\linewidth][短答案]
+\end{question}
+
+
 
 \end{document}

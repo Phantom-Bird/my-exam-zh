@@ -1,0 +1,328 @@
+% !TeX root = ../exam-zh-doc-basic.tex
+
+\section{基础概念}
+
+本章为完全不了解 \LaTeX{} 的新手准备。如果你已经有 \LaTeX{} 基础，可以跳过本章，直接阅读第 3 章。
+
+\subsection{LaTeX 基础知识}
+
+\subsubsection{什么是命令}
+
+\LaTeX{} 中的命令以反斜杠 |\| 开头，后面跟命令名称。
+
+\textbf{基本语法：}
+\begin{latexcode}
+  \命令名{必选参数}
+  \命令名[可选参数]{必选参数}
+\end{latexcode}
+
+\textbf{示例：}
+\begin{latexcode}
+  \title{我的标题}           % 设置标题
+  \fillin[答案]{默认文本}    % 有可选参数的命令
+  \maketitle                 % 无参数的命令
+\end{latexcode}
+
+\subsubsection{什么是环境}
+
+环境用于包含一段需要特殊处理的内容，以 |\begin{环境名}| 开始，|\end{环境名}| 结束。
+
+\textbf{基本语法：}
+\begin{latexcode}
+  \begin{环境名}
+    内容...
+  \end{环境}
+\end{latexcode}
+
+\textbf{示例：}
+\begin{latexcode}
+  \begin{question}
+    题目内容...
+  \end{question}
+
+  \begin{choices}
+    \item 选项A
+    \item 选项B
+  \end{choices}
+\end{latexcode}
+
+\subsubsection{注释}
+
+以 |%| 开头的行是注释，不会被编译。
+
+\begin{latexcode}
+  % 这是注释，不会显示在PDF中
+  \title{标题}  % 行尾的注释
+\end{latexcode}
+
+\textbf{用途：}
+\begin{itemize}
+  \item 解释代码的作用
+  \item 临时禁用某些代码
+  \item 切换学生版/教师版时注释 |\examsetup|
+\end{itemize}
+
+\subsubsection{特殊字符}
+
+以下字符在 \LaTeX{} 中有特殊含义：
+
+\begin{center}
+\begin{tabular}{ll}
+  \textbf{字符} & \textbf{用途} \\
+  \hline
+  |\{| 和 |\}| & 参数分组 \\
+  |[| 和 |]| & 可选参数 \\
+  |\$| & 数学公式标记 \\
+  |\%| & 注释标记 \\
+  |\&| & 表格对齐符 \\
+  |\_| & 下标符号 \\
+  |\textasciicircum| & 上标符号 \\
+  |\textbackslash| & 命令开始符 \\
+\end{tabular}
+\end{center}
+
+\textbf{如何输入这些字符：}
+\begin{latexcode}
+  % 需要显示这些特殊字符时，前面加反斜杠
+  价格是 \$100        % 显示 $100
+  50\% 的概率         % 显示 50%
+  下划线：\_          % 显示 _
+\end{latexcode}
+
+
+\subsection{exam-zh 核心概念}
+
+\subsubsection{文档类}
+
+每个 \LaTeX{} 文档都要声明文档类，exam-zh 使用 |exam-zh| 文档类：
+
+\begin{latexcode}[deletetexcs={\documentclass},morekeywords={\documentclass}]
+  \documentclass{exam-zh}  % 必须在文件开头
+\end{latexcode}
+
+这行代码告诉 \LaTeX{} 使用 exam-zh 的排版规则和命令。
+
+\subsubsection{文档结构}
+
+一个完整的 \LaTeX{} 文档结构：
+
+\begin{latexcode}[deletetexcs={\documentclass},morekeywords={\documentclass}]
+  \documentclass{exam-zh}     % 文档类声明
+
+  % === 导言区（可选配置）===
+  \examsetup{
+    % 各种配置...
+  }
+
+  \begin{document}            % 正文开始
+
+    % === 试卷内容 ===
+    \title{标题}
+    \maketitle
+
+    题目内容...
+
+  \end{document}              % 正文结束
+\end{latexcode}
+
+\textbf{三个部分：}
+\begin{enumerate}
+  \item \textbf{文档类}：|\documentclass{exam-zh}|
+  \item \textbf{导言区}：|\documentclass| 和 |\begin{document}| 之间，放配置
+  \item \textbf{正文区}：|\begin{document}| 和 |\end{document}| 之间，放内容
+\end{enumerate}
+
+\subsubsection{键值设置}
+
+\cls{exam-zh} 使用 |\examsetup| 命令进行各种配置：
+
+\begin{latexcode}
+  \examsetup{
+    键1 = 值1,
+    键2 = 值2,
+    ...
+  }
+\end{latexcode}
+
+\textbf{示例：}
+\begin{latexcode}
+  \examsetup{
+    question/show-answer = true,    % 显示答案
+    question/show-points = true,    % 显示分值
+    choices/columns = 2,            % 选项排2列
+  }
+\end{latexcode}
+
+\textbf{注意：}
+\begin{itemize}
+  \item 每个键值对之间用逗号分隔
+  \item 等号两边可以有空格
+  \item 最后一行可以不加逗号
+\end{itemize}
+
+\subsubsection{题目环境}
+
+exam-zh 提供了三种题目环境：
+
+\begin{enumerate}
+  \item \textbf{question}：用于选择题和填空题
+  \item \textbf{problem}：用于解答题
+  \item \textbf{solution}：用于解答过程（problem 内部使用）
+\end{enumerate}
+
+\textbf{使用示例：}
+\begin{latexcode}
+  % 选择题/填空题
+  \begin{question}[points = 5]
+    题目内容...
+  \end{question}
+
+  % 解答题
+  \begin{problem}[points = 10]
+    题目内容...
+    \begin{solution}
+      解答过程...
+    \end{solution}
+  \end{problem}
+\end{latexcode}
+
+\subsubsection{答案控制机制}
+
+exam-zh 的一个核心功能是控制答案显示/隐藏：
+
+\textbf{相关键值：}
+\begin{itemize}
+  \item |question/show-answer|：控制填空题答案
+  \item |paren/show-paren|：控制选择题答案括号
+  \item |solution/show-solution|：控制解答题答案
+\end{itemize}
+
+\textbf{典型用法：}
+\begin{latexcode}
+  % 学生版（隐藏所有答案）- 默认行为
+  % 不需要任何设置
+
+  % 教师版（显示所有答案）
+  \examsetup{
+    paren/show-paren = true,
+    question/show-answer = true,
+    solution/show-solution = show-stay
+  }
+\end{latexcode}
+
+
+\subsection{编译与调试}
+
+\subsubsection{如何编译}
+
+\textbf{方法一：命令行}
+\begin{shellcode}[morekeywords={xelatex}]
+  xelatex 文件名.tex
+\end{shellcode}
+
+\textbf{方法二：IDE（推荐）}
+
+使用 VS Code、TeXstudio、TeXworks 等编辑器：
+\begin{enumerate}
+  \item 打开 |.tex| 文件
+  \item 选择 XeLaTeX 编译器
+  \item 点击"编译"或"构建"按钮
+\end{enumerate}
+
+\textbf{注意：}
+\begin{itemize}
+  \item \textbf{必须}使用 XeLaTeX 编译器
+  \item 第一次编译可能需要较长时间（下载字体等）
+  \item 有交叉引用时需要编译两次
+\end{itemize}
+
+\subsubsection{常见错误类型}
+
+\paragraph{编译器错误}
+
+\textbf{错误提示：}|! Undefined control sequence|
+
+\textbf{原因：}使用了不存在的命令或拼写错误。
+
+\textbf{示例：}
+\begin{latexcode}
+  \titel{标题}  % 错误：应该是 \title
+\end{latexcode}
+
+\paragraph{语法错误}
+
+\textbf{错误提示：}|! Missing $ inserted|
+
+\textbf{原因：}数学符号没有用 |\$| 包裹。
+
+\textbf{示例：}
+\begin{latexcode}
+  x^2 + 1 = 0  % 错误
+  $x^2 + 1 = 0$  % 正确
+\end{latexcode}
+
+\paragraph{括号不匹配}
+
+\textbf{错误提示：}|! Missing } inserted|
+
+\textbf{原因：}花括号或环境没有正确闭合。
+
+\textbf{示例：}
+\begin{latexcode}
+  \title{我的标题  % 错误：少了右花括号
+  \begin{question}
+    ...
+  % 错误：少了 \end{question}
+\end{latexcode}
+
+\subsubsection{调试技巧}
+
+\begin{enumerate}
+  \item \textbf{查看错误行号}：错误信息会显示出错的行号
+
+  \item \textbf{二分法查找}：
+    \begin{itemize}
+      \item 注释掉一半代码
+      \item 如果能编译，错误在注释部分
+      \item 继续二分，直到找到出错位置
+    \end{itemize}
+
+  \item \textbf{最小可复现示例}：
+    \begin{itemize}
+      \item 删除不相关代码
+      \item 保留最少的能重现错误的代码
+      \item 方便提问和排查
+    \end{itemize}
+
+  \item \textbf{检查日志文件}：
+    \begin{itemize}
+      \item 编译后生成 |.log| 文件
+      \item 包含详细的错误信息
+      \item 搜索 |Error| 或 |!| 定位问题
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection{下一步}
+
+掌握了这些基础概念后，你可以：
+
+\begin{enumerate}
+  \item 阅读第 3 章，学习如何创建各种题型
+  \item 尝试修改 \file{examples-basic/} 中的示例
+  \item 遇到问题时查阅第 6 章 FAQ
+  \item 需要详细参数时查阅完整文档 \file{exam-zh-doc.pdf}
+\end{enumerate}
+
+\textbf{推荐学习路径：}
+
+对于新手，建议按以下顺序学习：
+\begin{enumerate}
+  \item 先看第 1 章"快速开始"，创建第一份试卷
+  \item 了解本章的基础概念
+  \item 学习第 3 章的各种题型
+  \item 根据需要查阅第 4 章的常见场景
+  \item 参考第 5 章的完整示例
+\end{enumerate}
+
+不要试图一次性学完所有内容，而是\textbf{边用边学、遇到问题再查}。
