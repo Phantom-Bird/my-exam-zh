@@ -1,0 +1,70 @@
+\let\stop\empty
+\documentclass{./exam-zh}
+
+\providecommand \tuppi { \mathord{\text{\fontspec{Times New Roman}\symbol{"03C0}}} }
+\providecommand \vstretch [1] {\vspace{\stretch{#1}}}
+
+\examsetup{
+    page = {
+        size = a4paper,
+        show-foot = true,
+        foot-type = separate,
+        foot-content = 第 $;$ 页 (共 $;$ 页),
+        show-columnline = false
+    },
+    paren = {
+        type = none
+    },
+    question = {
+        show-points = true
+    },
+    fillin = {
+        no-answer-type = none
+    },
+}
+
+\everymath{\displaystyle}
+
+\begin{document}
+
+\title{标题}
+\subject[3em]{科目}
+\secret[\makesecret{不绝密}{不启用} \hfill \Large{\heiti {试卷类型: A}}]
+
+\maketitle
+
+\begin{notice}
+    \item 第一条
+    \item 第二条 \\ 第二行
+\end{notice}
+
+\section{选择题}
+
+\begin{question}
+题干
+
+\begin{choices}
+    \item 选项 A
+    \item 选项 B
+    \item 选项 C
+    \item 选项 D
+\end{choices}
+\end{question}
+
+\section{填空题}
+
+\begin{question}
+题干 \fillin[width=5em][].
+\end{question}
+
+\section{解答题}
+
+\begin{question}[points=13]
+题干
+
+\begin{enumerate}
+    \item 小问 1
+    \item 小问 2
+\end{enumerate}
+\end{question}
+\end{document}
