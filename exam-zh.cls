@@ -727,12 +727,13 @@
   }
 
 % 绝密 启用前
-\NewDocumentCommand \secret { O{\bfseries} }
+\NewDocumentCommand \makesecret {mm} {{\heiti{#1}} $\bigstar$ #2}
+
+\NewDocumentCommand \secret { O{\makesecret{绝密}{启用前}} }
   {
     \par \noindent
     \group_begin:
       #1
-      绝密 $\bigstar$ 启用前
     \group_end:
     \par
   }
@@ -772,6 +773,7 @@
         labelwidth = 1.5em ,
         align      = right ,
         label      = { \arabic * . } ,
+        itemsep    = -2pt ,
         #2
       ]
   }
