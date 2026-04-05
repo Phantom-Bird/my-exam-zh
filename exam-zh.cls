@@ -727,7 +727,7 @@
   }
 
 % 绝密 启用前
-\NewDocumentCommand \makesecret {mm} {{\heiti{#1}} $\bigstar$ #2}
+\NewDocumentCommand \makesecret {mm} {{\heiti{#1}}~$\bigstar$~#2}
 
 \NewDocumentCommand \secret { O{\makesecret{绝密}{启用前}} }
   {
